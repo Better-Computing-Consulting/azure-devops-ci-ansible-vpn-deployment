@@ -1,0 +1,185 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "string"
+    },
+    "AllowedIP": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies the Public IP with access to the key vault."
+      }
+    },
+    "ReadOnlyServiceAccountObjectId": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies Service Principal objectId with read-only access to the name of the key vault."
+      }
+    },
+    "FullAccessAccountObjectId": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies user account objectId with full access to the key vault."
+      }
+    },
+    "ASAUserName": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies user name to access to ASA device."
+      }
+    },
+    "ASAUserPassword": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies password of the user to access to ASA device."
+      }
+    },
+    "ASAEnablePassword": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies enable password to elevate access in the ASA device."
+      }
+    },
+    "VPNSharedKey": {
+      "type": "secureString",
+      "metadata": {
+        "description": "Specifies shared key for both ends of the VPN tunnel."
+      }
+    }
+  },
+    "variables": {},
+  "resources": [
+    {
+      "apiVersion": "2019-09-01",
+      "name": "[parameters('name')]",
+      "location": "[resourceGroup().location]",
+      "type": "Microsoft.KeyVault/vaults",
+      "properties": {
+        "enabledForDeployment": false,
+        "enabledForTemplateDeployment": false,
+        "enabledForDiskEncryption": false,
+        "enableRbacAuthorization": false,
+        "accessPolicies": [
+          {
+            "tenantId": "[subscription().tenantId]",
+            "objectId": "[parameters('ReadOnlyServiceAccountObjectId')]",
+            "permissions": {
+              "keys": [],
+              "secrets": [
+                "Get",
+                "List"
+              ],
+              "certificates": []
+            }
+          },
+          {
+            "tenantId": "[subscription().tenantId]",
+            "objectId": "[parameters('FullAccessAccountObjectId')]",
+            "permissions": {
+              "keys": [
+                "Get",
+                "List",
+                "Update",
+                "Create",
+                "Import",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore"
+              ],
+              "secrets": [
+                "Get",
+                "List",
+                "Set",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore"
+              ],
+              "certificates": [
+                "Get",
+                "List",
+                "Update",
+                "Create",
+                "Import",
+                "Delete",
+                "Recover",
+                "Backup",
+                "Restore",
+                "ManageContacts",
+                "ManageIssuers",
+                "GetIssuers",
+                "ListIssuers",
+                "SetIssuers",
+                "DeleteIssuers"
+              ]
+            }
+          }
+        ],
+        "tenantId": "[subscription().tenantId]",
+        "sku": {
+          "name": "Standard",
+          "family": "A"
+        },
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "defaultAction": "Deny",
+          "ipRules": [
+            {
+              "value": "[parameters('AllowedIP')]"
+            }
+          ],
+          "virtualNetworkRules": []
+        }
+      },
+      "tags": {},
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2019-09-01",
+      "name": "[format('{0}/{1}', parameters('name'), 'ASAUserName')]",
+      "properties": {
+        "value": "[parameters('ASAUserName')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2019-09-01",
+      "name": "[format('{0}/{1}', parameters('name'), 'ASAUserPassword')]",
+      "properties": {
+        "value": "[parameters('ASAUserPassword')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2019-09-01",
+      "name": "[format('{0}/{1}', parameters('name'), 'EnablePassword')]",
+      "properties": {
+        "value": "[parameters('ASAEnablePassword')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2019-09-01",
+      "name": "[format('{0}/{1}', parameters('name'), 'VPNSharedKey')]",
+      "properties": {
+        "value": "[parameters('VPNSharedKey')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('name'))]"
+      ]
+    }
+  ],
+    "outputs": {}
+}
