@@ -162,7 +162,7 @@
             value: "{{ vnetgw }}"
           vpnSharedKey:
             value: "{{ vpnsharedkey }}"
-        template_link: 'https://raw.githubusercontent.com/Better-Computing-Consulting/templates-azure/master/arm/LocalNetGW-VPNConn.json'
+        template_link: 'https://raw.githubusercontent.com/Better-Computing-Consulting/azure-devops-ci-ansible-vpn-deployment/master/LocalNetGW-VPNConn.json'
 
     - name: crypto ikev2 policy 10
       cisco.asa.asa_config:
