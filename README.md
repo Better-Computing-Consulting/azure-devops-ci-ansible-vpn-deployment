@@ -51,6 +51,8 @@ To get the objectid for the admin user run this command:
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FBetter-Computing-Consulting%2Fazure-devops-ci-ansible-vpn-deployment%2Fmaster%2FKeyVault.json)
 
+[KeyVault Template](KeyVault.json)
+
 You will need to update the playbook variable __keyvaulturl__ with the url of your own KeyVault.
 
 The repository includes a playbook __vpnrm.yml__ to undo all the changes made to the firewall and delete the Azure Resource Group, Virtual Network Gateway, and all other resources the project created.
