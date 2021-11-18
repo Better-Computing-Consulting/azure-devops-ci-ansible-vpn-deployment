@@ -59,3 +59,4 @@ You will need to update the playbook variable __keyvaulturl__ with the url of yo
 
 The repository includes a playbook __vpnrm.yml__ to undo all the changes made to the firewall and delete the Azure Resource Group, Virtual Network Gateway, and all other resources the project created.
 
+:smiley:
