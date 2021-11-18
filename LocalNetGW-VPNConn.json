@@ -63,7 +63,7 @@
           "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('VNetGW'))]"
         },
         "localNetworkGateway2": {
-          "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('localNetworkGW'))]"
+          "id": "[resourceId('Microsoft.Network/localNetworkGateways', parameters('LocalNetGWName'))]"
         },
         "connectionType": "IPsec",
         "connectionProtocol": "IKEv2",
