@@ -109,38 +109,6 @@
       set_fact:
         asapubip: "{{ shres.stdout }}" 
 
-#    - name: Create Local Network Gateway from template
-#      azure_rm_deployment:
-#        resource_group: "{{ rg }}"
-#        name: LocalNetGWDeployment
-#        parameters:
-#          name:
-#            value: "{{ localnetgw }}"
-#          gatewayIpAddress:
-#            value: "{{ asapubip }}"
-#          addressPrefixes:
-#            value: "{{ localnetgwaddrprefix }}"
-#          asn:
-#            value: 65000
-#          bgpPeeringAddress:
-#            value: "{{ localnetgwpeeraddr }}"
-#        template_link: 'https://raw.githubusercontent.com/Better-Computing-Consulting/templates-azure/master/arm/LocalNetworkGatewayTemplate.json'
-
-#    - name: Create VPN-Connection from template
-#      azure_rm_deployment:
-#        resource_group: "{{ rg }}"
-#        name: VPNConnectionDeployment
-#        parameters:
-#          name:
-#            value: "{{ vpnconn }}"
-#          VNetGW:
-#            value: "{{ vnetgw }}"
-#          localNetworkGW:
-#            value: "{{ localnetgw }}"
-#          vpnSharedKey:
-#            value: "{{ vpnsharedkey }}"
-#        template_link: 'https://raw.githubusercontent.com/Better-Computing-Consulting/templates-azure/master/arm/VPNCconnectionTemplate.json'
-
     - name: Create Local Network Gateway and VPN-Connection from template
       azure_rm_deployment:
         resource_group: "{{ rg }}"
