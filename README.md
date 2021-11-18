@@ -7,7 +7,7 @@ To logon to Azure Ansible uses credentials stored in the __~/.azure/credentials_
 
 The credentials file has this format:
 
-```ascii
+```Text
 [default]
 subscription_id=xxx
 client_id=xxx
