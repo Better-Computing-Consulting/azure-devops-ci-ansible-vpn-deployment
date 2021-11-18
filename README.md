@@ -1,7 +1,7 @@
 # azure-devops-ci-ansible-vpn-deployment
 Automatically deploy both ends of a VPN tunnel using Ansible and Azure KeyVault.  At one end it deploys and Azure Virtual Network Gateway, and at the other it configures an ASA 5506 firewall.
 
-The Azure DevOps Pieline runs on an Ubuntu Agent running on-prem, so it can access the ASA through its LAN interface. 
+The Azure DevOps Pipeline runs on an Ubuntu Agent running on-prem, so it can access the ASA through its LAN interface. 
 
 To logon to Azure Ansible uses credentials stored in the __~/.azure/credentials__ file of the user running the Azure Pipelines Agent.
 
@@ -36,7 +36,7 @@ echo "tenant=$(az account show --query '{tenantId:tenantId}' -o tsv)" >> ~/.azur
 
 ```
 
-To avoid writing usernames, passwords or the VPN shared key, playbook uses an Azure KeyVault to store and retrieve these secrets.  The KeyVault used in the project also restricts access to one public IP and specifies a user with read-only access and another with full access. 
+To avoid writing usernames, passwords or the VPN shared key, the playbook retrieves these secrets from an Azure KeyVault.  The KeyVault used in the project also restricts access to one public IP and specifies a user with read-only access and another with full access. 
 
 You can use the button below to deploy a KeyVault with the same properties as the one the playbook uses.  The KeyVault deployment proceess requires the objectid of each user.
 
