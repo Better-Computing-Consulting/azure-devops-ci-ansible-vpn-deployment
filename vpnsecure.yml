@@ -17,7 +17,7 @@
       localnetgwpeeraddrnet: "192.168.1.0 mask 255.255.255.252"
       vpnconn: AzureLabConn
       vpnrouteip: 192.168.1.3
-      keyvaulturl: "https://bcckeyvault.vault.azure.net/"
+      keyvaulturl: "keyvault-address-here"
 
   tasks:    
 
