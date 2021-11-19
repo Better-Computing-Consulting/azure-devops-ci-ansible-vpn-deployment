@@ -5,7 +5,7 @@
   vars:
       rg: VPNetWestRG
       vnetgw: VNetGW1
-      keyvaulturl: "https://bcckeyvault.vault.azure.net/"
+      keyvaulturl: "keyvault-address-here"
 
   tasks:
 
