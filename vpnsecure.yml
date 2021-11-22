@@ -17,11 +17,11 @@
       localnetgwpeeraddrnet: "192.168.1.0 mask 255.255.255.252"
       vpnconn: AzureLabConn
       vpnrouteip: 192.168.1.3
-      keyvaulturl: "https://bcckeyvault.vault.azure.net/"
+      keyvaulturl: "keyvault-address-here"
 
   tasks:    
 
-    - name: Get project secret variables from KeyVault
+    - name: Get project secret variables from KeyVault 
       azure.azcollection.azure_rm_keyvaultsecret_info:
         vault_uri: "{{ keyvaulturl }}"
         name: "{{ item }}"
