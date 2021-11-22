@@ -21,7 +21,7 @@
 
   tasks:    
 
-    - name: Get project secret variables from KeyVault 
+    - name: Get project secret variables from KeyVault
       azure.azcollection.azure_rm_keyvaultsecret_info:
         vault_uri: "{{ keyvaulturl }}"
         name: "{{ item }}"
